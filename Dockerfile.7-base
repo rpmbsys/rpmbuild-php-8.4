@@ -1,0 +1,43 @@
+ARG centos=7.9.2009
+FROM aursu/rpmbuild:${centos}-build
+
+USER root
+RUN yum -y install \
+        bzip2-devel \
+        cyrus-sasl-devel \
+        freetype-devel \
+        gdbm-devel \
+        httpd-devel \
+        libacl-devel \
+        libcurl-devel \
+        libedit-devel \
+        libdb-devel \
+        libffi-devel \
+        libjpeg-turbo-devel \
+        libpng-devel \
+        libsodium-devel \
+        libtidy-devel \
+        libtool-ltdl-devel \
+        libwebp-devel \
+        libxml2-devel \
+        libxslt-devel \
+        mysql-devel \
+        nginx-filesystem \
+        openldap-devel \
+        openssl-devel \
+        postgresql-devel \
+        postfix \
+        sqlite-devel \
+        systemd-devel \
+        systemtap-sdt-devel \
+        unixODBC-devel \
+        uw-imap-devel \
+        zlib-devel \
+    && yum clean all && rm -rf /var/cache/yum /var/lib/rpm/__db*
+
+RUN yum -y --enablerepo=bintray-custom install \
+        libicu-devel \
+        "libzip-devel >= 1.5.1" \
+        pcre2-devel \
+        oniguruma-devel \
+    && yum clean all && rm -rf /var/cache/yum /var/lib/rpm/__db*

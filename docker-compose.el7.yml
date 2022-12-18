@@ -1,0 +1,21 @@
+version: "3"
+services:
+  centos7php81:
+    volumes:
+      - rpm7:/home/centos/rpmbuild/RPMS
+    build:
+      context: .
+      args:
+        os: $OS7
+  centos7php81reloc:
+    command: ["-ba", "--with", "relocation"]
+    volumes:
+      - rpm7:/home/centos/rpmbuild/RPMS
+    build:
+      context: .
+      args:
+        os: $OS7
+
+volumes:
+  rpm7:
+    name: rpm7

@@ -1,0 +1,91 @@
+name: RPM build
+on: [push]
+env:
+  ARTIFACTORY_URL: https://rpmb.jfrog.io
+  BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
+  BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
+  DOCKER_USER: ${{ secrets.DOCKER_USER }}
+  DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
+  BINTRAY_REPO: php81custom
+  OS7: 7.9.2009
+  OS8: 8.7.20221112
+  OS7TAG: 7.9.2009
+  OS8TAG: 8.7.20221112
+  OS9: stream9-20221206.0
+  OS9TAG: stream9-20221206.0
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    if: ${{ ! startsWith(github.ref_name, 'skip-rpm-') }}
+    strategy:
+      matrix:
+        include:
+          - compose-file: docker-compose.el7.yml
+            base: centos7php81base
+            build: centos7php81
+            uploader: centos7bintray
+            repo_path: ""
+          - compose-file: docker-compose.rl8.yml
+            base: rocky8php81base
+            build: rocky8php81
+            uploader: rocky8bintray
+            repo_path: rocky/8
+          - compose-file: docker-compose.el9.yml
+            base: stream9php81base
+            build: stream9php81
+            uploader: stream9bintray
+            repo_path: centos/9-stream
+    env:
+      BUILD_COMPOSE_FILE: ${{ matrix.compose-file }}
+      BASE: ${{ matrix.base }}
+      BUILD: ${{ matrix.build }}
+      UPLOADER: ${{ matrix.uploader }}
+      REPO_PATH: ${{ matrix.repo_path }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - run: docker-compose -f docker-compose.base.yml build --no-cache --pull $BASE
+      - run: docker-compose -f $BUILD_COMPOSE_FILE build --no-cache $BUILD
+      - run: docker-compose -f $BUILD_COMPOSE_FILE up --exit-code-from $BUILD $BUILD
+      - run: docker-compose -f rpmbuild/docker-compose.bintray.yml pull $UPLOADER
+      - run: docker-compose -f rpmbuild/docker-compose.bintray.yml run --rm -e BINTRAY_USER=$BINTRAY_USER -e BINTRAY_API_KEY=$BINTRAY_API_KEY -e BINTRAY_REPO=$BINTRAY_REPO -e ARTIFACTORY_URL=$ARTIFACTORY_URL -e REPO_PATH=$REPO_PATH $UPLOADER
+  build:
+    needs: test
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - run: docker-compose -f build/docker-compose.yml build --no-cache --pull
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - run: docker-compose -f build/docker-compose.yml push
+  runtime:
+    needs: test
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        compose-file: [run/docker-compose.el7.yml, run/docker-compose.rl8.yml, run/docker-compose.el9.yml]
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - run: docker-compose -f ${{ matrix.compose-file }} build --no-cache --pull
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - run: docker-compose -f ${{ matrix.compose-file }} push
+  dev:
+    needs: runtime
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        compose-file: [run/docker-compose.dev.yml]
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - run: docker-compose -f ${{ matrix.compose-file }} build --no-cache --pull
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - run: docker-compose -f ${{ matrix.compose-file }} push

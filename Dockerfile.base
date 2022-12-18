@@ -1,0 +1,46 @@
+ARG os=8.7.20221112
+FROM aursu/rpmbuild:${os}-build
+
+USER root
+RUN dnf -y install \
+        bzip2-devel \
+        cyrus-sasl-devel \
+        freetype-devel \
+        gdbm-devel \
+        httpd-devel \
+        krb5-devel \
+        libacl-devel \
+        libcurl-devel \
+        libedit-devel \
+        libdb-devel \
+        libffi-devel \
+        libicu-devel \
+        libjpeg-turbo-devel \
+        libpng-devel \
+        libsodium-devel \
+        libtidy-devel \
+        libtool-ltdl-devel \
+        libwebp-devel \
+        libxcrypt-devel \
+        libxml2-devel \
+        libxslt-devel \
+        libzip-devel \
+        mysql-devel \
+        nginx-filesystem \
+        oniguruma-devel \
+        openldap-devel \
+        openssl-devel \
+        pcre2-devel \
+        perl \
+        postgresql-devel \
+        postfix \
+        sqlite-devel \
+        systemd-devel \
+        systemtap-sdt-devel \
+        unixODBC-devel \
+        zlib-devel \
+    && dnf clean all && rm -rf /var/cache/dnf /var/lib/rpm/__db*
+
+RUN dnf -y --enablerepo=bintray-custom install \
+        uw-imap-devel \
+    && dnf clean all && rm -rf /var/cache/dnf /var/lib/rpm/__db*

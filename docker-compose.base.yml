@@ -1,0 +1,23 @@
+version: "3"
+services:
+  centos7php81base:
+    build:
+      context: .
+      dockerfile: Dockerfile.7-base
+      args:
+        centos: $OS7
+    image: "aursu/php81build:${OS7}-base"
+  rocky8php81base:
+    build:
+      context: .
+      dockerfile: Dockerfile.base
+      args:
+        os: $RL8
+    image: "aursu/php81build:${RL8TAG}-base"
+  stream9php81base:
+    build:
+      context: .
+      dockerfile: Dockerfile.base
+      args:
+        os: $OS9
+    image: "aursu/php81build:${OS9TAG}-base"
