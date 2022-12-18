@@ -45,15 +45,15 @@
 
 %if %{with_relocation}
 %global program_suffix      81
-%global main_name           php81
-%global fpm_name            php81-fpm
-%global php_sysconfdir      %{_sysconfdir}/php81
-%global php_datadir         %{_datadir}/php81
+%global main_name           php82
+%global fpm_name            php82-fpm
+%global php_sysconfdir      %{_sysconfdir}/php82
+%global php_datadir         %{_datadir}/php82
 %global pear_datadir        %{php_datadir}/pear
-%global php_docdir          %{_docdir}/php81
+%global php_docdir          %{_docdir}/php82
 %global tests_datadir       %{php_datadir}/tests
 # configured by relocation patch (in other words - hardcoded)
-%global fpm_config_name     php81-fpm.conf
+%global fpm_config_name     php82-fpm.conf
 %global fpm_config_d        %{php_sysconfdir}/php%{program_suffix}-fpm.d
 %global bin_phar            phar%{program_suffix}
 %global bin_cli             php%{program_suffix}
@@ -63,7 +63,7 @@
 %global bin_fpm             php%{program_suffix}-fpm
 %global bin_php_config      php%{program_suffix}-config
 %global fpm_datadir         %{_datadir}/php%{program_suffix}-fpm
-%global php_includedir      %{_includedir}/php81
+%global php_includedir      %{_includedir}/php82
 %else
 %global main_name           php
 %global fpm_name            php-fpm
@@ -183,17 +183,17 @@ Source51: opcache-default.blacklist
 Source53: 20-ffi.ini
 
 # relocation resources
-Source101: php81-php.conf
-Source103: php81-macros.php
-Source104: php81-php-fpm.conf
-Source105: php81-php-fpm-www.conf
-Source106: php81-php-fpm.service
-Source107: php81-php-fpm.logrotate
-Source112: php81-php-fpm.wants
-Source113: php81-nginx-fpm.conf
-Source114: php81-nginx-php.conf
-Source150: php81-10-opcache.ini
-Source153: php81-20-ffi.ini
+Source101: php82-php.conf
+Source103: php82-macros.php
+Source104: php82-php-fpm.conf
+Source105: php82-php-fpm-www.conf
+Source106: php82-php-fpm.service
+Source107: php82-php-fpm.logrotate
+Source112: php82-php-fpm.wants
+Source113: php82-nginx-fpm.conf
+Source114: php82-nginx-php.conf
+Source150: php82-10-opcache.ini
+Source153: php82-20-ffi.ini
 
 # Build fixes
 Patch1: php-7.4.0-httpd.patch
@@ -225,7 +225,7 @@ Patch60: php-5.6.31-no-scan-dir-override.patch
 Patch300: php-7.4.0-datetests.patch
 
 # relocation (400+)
-Patch405: php81-php-7.2.0-includedir.patch
+Patch405: php82-php-7.2.0-includedir.patch
 Patch409: php-7.0.8-relocation.patch
 
 BuildRequires: autoconf >= 2.64
