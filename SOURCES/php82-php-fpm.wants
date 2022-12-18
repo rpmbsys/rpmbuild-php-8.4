@@ -1,2 +1,2 @@
 [Unit]
-Wants=php-fpm.service
+Wants=php82-fpm.service
