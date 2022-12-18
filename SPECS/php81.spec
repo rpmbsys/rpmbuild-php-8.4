@@ -105,8 +105,8 @@
 %global fpm_unit            %{fpm_service}.service
 %global fpm_logrotate       %{fpm_service}
 
-%global apiver      20210902
-%global zendver     20210902
+%global apiver      20220829
+%global zendver     20220829
 %global pdover      20170320
 # Extension version
 %global fileinfover 1.0.5
@@ -146,7 +146,7 @@
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: %{php_main}
-Version: 8.1.13
+Version: 8.2.0
 Release: %{rpmrel}%{?dist}
 
 # All files licensed under PHP version 3.01, except
@@ -203,7 +203,7 @@ Patch9: php-7.0.7-curl.patch
 
 # Functional changes
 # Use system nikic/php-parser
-Patch41: php-8.1.0-parser.patch
+Patch41: php-8.2.0-parser.patch
 # use system tzdata
 Patch42: php-8.1.0-systzdata-v22.patch
 # See http://bugs.php.net/53436
@@ -372,6 +372,7 @@ Provides: php-mysqlnd%{?_isa} = %{version}-%{baserel}
 Provides: php-openssl, php-openssl%{?_isa}
 # core PHP extension, so it is always enabled
 Provides: php-pcre, php-pcre%{?_isa}
+Provides: php-random, php-random%{?_isa}
 Provides: php-pdo = %{version}-%{baserel}
 Provides: php-pdo%{?_isa} = %{version}-%{baserel}
 Provides: php-pdo-abi  = %{pdover}
@@ -468,6 +469,7 @@ Summary: PHP FastCGI Process Manager
 BuildRequires: libacl-devel
 BuildRequires: nginx-filesystem
 BuildRequires: pkgconfig(libsystemd) >= 209
+BuildRequires: pkgconfig(libselinux)
 Requires: %{php_common}%{?_isa} = %{version}-%{baserel}
 # for /etc/nginx ownership
 Requires(pre): nginx-filesystem
@@ -494,7 +496,7 @@ Requires: openssl-devel%{?_isa} >= 1.0.2
 Requires: pcre2-devel%{?_isa}
 Requires: zlib-devel%{?_isa}
 %if 0%{?fedora} || 0%{?rhel} >= 8
-Recommends: php-nikic-php-parser4 >= 4.13.0
+Recommends: php-nikic-php-parser4 >= 4.15.1
 %endif
 
 %description devel
@@ -1082,6 +1084,7 @@ build --enable-fpm \
 %endif
     --with-fpm-acl \
     --with-fpm-systemd \
+    --with-fpm-selinux \
     --disable-cgi \
     --disable-cli \
     ${without_shared} \
@@ -1540,6 +1543,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Dec  6 2022 Remi Collet <remi@remirepo.net> - 8.2.0-1
+- update to 8.2.0 GA
+
 * Sat Dec 10 2022 Alexander Ursu <alexander.ursu@gmail.com> - 8.1.13-2
 - Disable LTO for CentOS 9 Stream
 
