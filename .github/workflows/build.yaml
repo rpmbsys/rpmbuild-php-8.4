@@ -6,7 +6,7 @@ env:
   BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
   DOCKER_USER: ${{ secrets.DOCKER_USER }}
   DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
-  BINTRAY_REPO: php81custom
+  BINTRAY_REPO: php82custom
   OS7: 7.9.2009
   OS8: 8.7.20221112
   OS7TAG: 7.9.2009
@@ -21,18 +21,23 @@ jobs:
       matrix:
         include:
           - compose-file: docker-compose.el7.yml
-            base: centos7php81base
-            build: centos7php81
+            base: centos7base
+            build: centos7build
             uploader: centos7bintray
             repo_path: ""
           - compose-file: docker-compose.rl8.yml
-            base: rocky8php81base
-            build: rocky8php81
+            base: rocky8base
+            build: rocky8build
+            uploader: rocky8bintray
+            repo_path: rocky/8
+          - compose-file: docker-compose.rl8.yml
+            base: rocky8base
+            build: rocky8buildreloc
             uploader: rocky8bintray
             repo_path: rocky/8
           - compose-file: docker-compose.el9.yml
-            base: stream9php81base
-            build: stream9php81
+            base: stream9base
+            build: stream9build
             uploader: stream9bintray
             repo_path: centos/9-stream
     env:

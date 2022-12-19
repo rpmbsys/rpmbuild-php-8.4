@@ -1,13 +1,13 @@
 version: "3"
 services:
-  rocky8php81:
+  rocky8build:
     volumes:
       - rpm8rocky:/home/centos/rpmbuild/RPMS
     build:
       context: .
       args:
         os: $RL8
-  rocky8php81reloc:
+  rocky8buildreloc:
     command: ["-ba", "--with", "relocation"]
     volumes:
       - rpm8rocky:/home/centos/rpmbuild/RPMS

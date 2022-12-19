@@ -1,22 +1,22 @@
 version: "3"
 services:
-  centos7php81build:
+  centos7build:
     build:
       context: .
       args:
         centos: $OS7
-    image: "aursu/php81build:${OS7TAG}-build"
-  rocky8php81build:
+    image: "aursu/php82build:${OS7TAG}-build"
+  rocky8build:
     build:
       context: .
       dockerfile: Dockerfile.rl8
       args:
         centos: $RL8
-    image: "aursu/php81build:${RL8TAG}-build"
-  stream9php81build:
+    image: "aursu/php82build:${RL8TAG}-build"
+  stream9build:
     build:
       context: .
       dockerfile: Dockerfile.el9
       args:
         centos: $OS9
-    image: "aursu/php81build:${OS9TAG}-build"
+    image: "aursu/php82build:${OS9TAG}-build"

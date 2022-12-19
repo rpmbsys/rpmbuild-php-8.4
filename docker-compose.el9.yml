@@ -1,13 +1,13 @@
 version: "3"
 services:
-  stream9php81:
+  stream9build:
     volumes:
       - rpm9stream:/home/centos/rpmbuild/RPMS
     build:
       context: .
       args:
         os: $OS9
-  stream9php81reloc:
+  stream9buildreloc:
     command: ["-ba", "--with", "relocation"]
     volumes:
       - rpm9stream:/home/centos/rpmbuild/RPMS

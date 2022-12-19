@@ -1,25 +1,25 @@
 version: "3"
 services:
-  stream9php81run:
+  stream9run:
     build:
       context: .
       dockerfile: Dockerfile.el9
       args:
         centos: $OS9
-    image: "aursu/php81build:${OS9TAG}-runtime"
-  stream9php81devbase:
+    image: "aursu/php82build:${OS9TAG}-runtime"
+  stream9devbase:
     build:
       context: .
       dockerfile: Dockerfile.el9
       args:
         image: node16dev
         centos: $OS9
-    image: "aursu/php81build:${OS9TAG}-devbase"
-  stream9php81dev2base:
+    image: "aursu/php82build:${OS9TAG}-devbase"
+  stream9dev2base:
     build:
       context: .
       dockerfile: Dockerfile.el9
       args:
         image: node18dev
         centos: $OS9
-    image: "aursu/php81build:${OS9TAG}-dev2base"
+    image: "aursu/php82build:${OS9TAG}-dev2base"

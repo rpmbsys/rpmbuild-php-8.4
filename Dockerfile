@@ -1,5 +1,5 @@
 ARG os=7.9.2009
-FROM aursu/php81build:${os}-base
+FROM aursu/php82build:${os}-base
 
 COPY SOURCES ${BUILD_TOPDIR}/SOURCES
 COPY SPECS ${BUILD_TOPDIR}/SPECS

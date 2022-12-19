@@ -1,22 +1,22 @@
 version: "3"
 services:
-  centos7php81run:
+  centos7run:
     build:
       context: .
       args:
         centos: $OS7
-    image: aursu/php81build:${OS7TAG}-runtime
-  centos7php81devbase:
+    image: aursu/php82build:${OS7TAG}-runtime
+  centos7devbase:
     build:
       context: .
       args:
         centos: $OS7
         image: node14dev
-    image: aursu/php81build:${OS7TAG}-devbase
-  centos7php81dev2base:
+    image: aursu/php82build:${OS7TAG}-devbase
+  centos7dev2base:
     build:
       context: .
       args:
         centos: $OS7
         image: node16dev
-    image: aursu/php81build:${OS7TAG}-dev2base
+    image: aursu/php82build:${OS7TAG}-dev2base
