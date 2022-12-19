@@ -856,8 +856,8 @@ cat %{SOURCE50} > 10-opcache.ini
 # according to https://forum.remirepo.net/viewtopic.php?pid=8407#p8407
 %ifarch x86_64
 sed -e '/opcache.huge_code_pages/s/0/1/' -i 10-opcache.ini
-%endif # ifarch x86_64
-%endif # if %{with_opcache}
+%endif
+%endif
 
 %if %{with_ffi}
 %if %{with_relocation}
@@ -865,7 +865,7 @@ cat %{SOURCE153} > 20-ffi.ini
 %else
 cat %{SOURCE53} > 20-ffi.ini
 %endif
-%endif # if %{with_ffi}
+%endif
 
 %build
 %if 0%{?rhel} >= 9
@@ -1128,8 +1128,8 @@ make -C build-cgi install-cgi  \
 %else
 %if %{with_modules}
 make -C build-apache install-modules INSTALL_ROOT=$RPM_BUILD_ROOT
-%endif # if %{with_modules}
-%endif # if %{with_cgi}
+%endif
+%endif
 
 # all except install-sapi - use apxs for rpmbuild is failed (httpd.conf is missed)
 make -C build-apache install-binaries \
@@ -1228,7 +1228,7 @@ install -m 644 %{SOURCE7} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{fpm_logrot
 # Nginx configuration
 install -D -m 644 %{SOURCE13} $RPM_BUILD_ROOT%{_sysconfdir}/nginx/conf.d/%{fpm_name}.conf
 install -D -m 644 %{SOURCE14} $RPM_BUILD_ROOT%{_sysconfdir}/nginx/default.d/%{main_name}.conf
-%endif # if %{with_relocation}
+%endif
 
 mv $RPM_BUILD_ROOT%{fpm_config}.default .
 mv $RPM_BUILD_ROOT%{fpm_config_d}/www.conf.default .
@@ -1244,8 +1244,8 @@ install -D -m 644 %{SOURCE112} $RPM_BUILD_ROOT%{_unitdir}/nginx.service.d/%{fpm_
 install -m 644 %{SOURCE6} $RPM_BUILD_ROOT%{_unitdir}/%{fpm_unit}
 install -D -m 644 %{SOURCE12} $RPM_BUILD_ROOT%{_unitdir}/httpd.service.d/%{fpm_service}.conf
 install -D -m 644 %{SOURCE12} $RPM_BUILD_ROOT%{_unitdir}/nginx.service.d/%{fpm_service}.conf
-%endif # if %{with_relocation}
-%endif # with_fpm
+%endif
+%endif
 
 TESTCMD="$RPM_BUILD_ROOT%{_bindir}/%{bin_cli} --no-php-ini"
 # Ensure all provided extensions are really there
@@ -1333,9 +1333,9 @@ EOF
 %{php_libdir}/modules/${mod}.so
 %config(noreplace) %{php_sysconfdir}/php.d/${ini}
 EOF
-%endif # if %{with_cgi}
+%endif
 done
-%endif # if %{with_modules}
+%endif
 
 %if %{with_xml}
 # The dom, xsl and xml* modules are all packaged in php-xml
@@ -1374,7 +1374,7 @@ sed -i -e "s/@PHP_APIVER@/%{apiver}%{isasuffix}/" \
 mkdir -p $RPM_BUILD_ROOT%{_rpmconfigdir}/macros.d
 install -m 644 -D macros.php \
            $RPM_BUILD_ROOT%{_rpmconfigdir}/macros.d/macros.%{php_main}
-%endif # if %{with_devel}
+%endif
 
 # Remove unpackaged files
 rm -rf $RPM_BUILD_ROOT%{php_libdir}/modules/*.a \
@@ -1406,7 +1406,7 @@ exit 0
 
 %postun fpm
 %systemd_postun_with_restart %{fpm_unit}
-%endif # if %{with_fpm}
+%endif
 
 %files
 %{_httpd_moddir}/libphp.so
@@ -1450,8 +1450,8 @@ exit 0
 %if ! %{with_devel}
 %exclude %{_bindir}/%{bin_php_config}
 %exclude %{_mandir}/man1/%{bin_php_config}.1*
-%endif # if ! %{with_devel}
-%endif # if %{with_cli}
+%endif
+%endif
 
 %if %{with_cgi}
 %files cgi
@@ -1493,7 +1493,7 @@ exit 0
 %{php_libdir}/build
 %{_mandir}/man1/%{bin_php_config}.1*
 %{_rpmconfigdir}/macros.d/macros.%{php_main}
-%endif # if %{with_devel}
+%endif
 
 %if %{with_xml}
 %files xml -f files.xml
@@ -1543,7 +1543,7 @@ exit 0
 %endif
 
 %changelog
-* Tue Dec  6 2022 Remi Collet <remi@remirepo.net> - 8.2.0-1
+* Sat Dec 19 2022 Alexander Ursu <alexander.ursu@gmail.com> - 8.2.0-1
 - update to 8.2.0 GA
 
 * Sat Dec 10 2022 Alexander Ursu <alexander.ursu@gmail.com> - 8.1.13-2
