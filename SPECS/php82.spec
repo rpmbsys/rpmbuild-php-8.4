@@ -199,7 +199,6 @@ Source153: php82-20-ffi.ini
 Patch1: php-7.4.0-httpd.patch
 Patch5: php-7.2.0-includedir.patch
 Patch8: php-8.1.0-libdb.patch
-Patch9: php-7.0.7-curl.patch
 
 # Functional changes
 # Use system nikic/php-parser
@@ -731,9 +730,6 @@ possibility to act as a socket server as well as a client.
 %endif
 
 %patch8 -p1
-%if 0%{?rhel}
-%patch9 -p1
-%endif
 
 %if %{with_relocation}
 %patch409 -p1
