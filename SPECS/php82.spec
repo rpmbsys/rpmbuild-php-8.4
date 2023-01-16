@@ -44,7 +44,7 @@
 %global with_relocation 0%{?_with_relocation:1}
 
 %if %{with_relocation}
-%global program_suffix      81
+%global program_suffix      82
 %global main_name           php82
 %global fpm_name            php82-fpm
 %global php_sysconfdir      %{_sysconfdir}/php82
@@ -110,7 +110,7 @@
 %global pdover      20170320
 # Extension version
 %global fileinfover 1.0.5
-%global zipver      1.19.5
+%global zipver      1.21.1
 
 # we don't want -z defs linker flag
 %undefine _strict_symbol_defs_build
@@ -1543,7 +1543,7 @@ exit 0
 %endif
 
 %changelog
-* Sat Dec 19 2022 Alexander Ursu <alexander.ursu@gmail.com> - 8.2.0-1
+* Mon Dec 19 2022 Alexander Ursu <alexander.ursu@gmail.com> - 8.2.0-1
 - update to 8.2.0 GA
 
 * Sat Dec 10 2022 Alexander Ursu <alexander.ursu@gmail.com> - 8.1.13-2
