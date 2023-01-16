@@ -30,11 +30,6 @@ jobs:
             build: rocky8build
             uploader: rocky8bintray
             repo_path: rocky/8
-          - compose-file: docker-compose.rl8.yml
-            base: rocky8base
-            build: rocky8buildreloc
-            uploader: rocky8bintray
-            repo_path: rocky/8
           - compose-file: docker-compose.el9.yml
             base: stream9base
             build: stream9build

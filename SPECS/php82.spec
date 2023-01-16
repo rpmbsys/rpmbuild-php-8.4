@@ -141,12 +141,12 @@
 %bcond_without         dtrace
 %bcond_without         zip
 
-%global rpmrel 2
+%global rpmrel 1
 %global baserel %{rpmrel}%{?dist}
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: %{php_main}
-Version: 8.2.0
+Version: 8.2.1
 Release: %{rpmrel}%{?dist}
 
 # All files licensed under PHP version 3.01, except
@@ -1539,6 +1539,13 @@ exit 0
 %endif
 
 %changelog
+* Wed Jan  4 2023 Remi Collet <remi@remirepo.net> - 8.2.1-1
+- Update to 8.2.1 - http://www.php.net/releases/8_2_1.php
+
+* Mon Dec 19 2022 Remi Collet <remi@remirepo.net> - 8.2.1~RC1-2
+- php-fpm.conf: move include directive after [global] section
+  following upstream example
+
 * Mon Dec 19 2022 Alexander Ursu <alexander.ursu@gmail.com> - 8.2.0-1
 - update to 8.2.0 GA
 
