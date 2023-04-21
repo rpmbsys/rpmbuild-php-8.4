@@ -146,7 +146,7 @@
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: %{php_main}
-Version: 8.2.1
+Version: 8.2.5
 Release: %{rpmrel}%{?dist}
 
 # All files licensed under PHP version 3.01, except
@@ -204,7 +204,7 @@ Patch8: php-8.1.0-libdb.patch
 # Use system nikic/php-parser
 Patch41: php-8.2.0-parser.patch
 # use system tzdata
-Patch42: php-8.1.0-systzdata-v22.patch
+Patch42: php-8.1.0-systzdata-v23.patch
 # See http://bugs.php.net/53436
 Patch43: php-7.4.0-phpize.patch
 # Use -lldap_r for OpenLDAP
@@ -1539,6 +1539,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Apr 12 2023 Remi Collet <remi@remirepo.net> - 8.2.5-1
+- Update to 8.2.5 - http://www.php.net/releases/8_2_5.php
+
 * Wed Jan  4 2023 Remi Collet <remi@remirepo.net> - 8.2.1-1
 - Update to 8.2.1 - http://www.php.net/releases/8_2_1.php
 
