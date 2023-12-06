@@ -14,4 +14,8 @@
 
 %__php         %{_bindir}/php82
 
+%__phpize      %{_bindir}/phpize82
+
+%__phpconfig    %{_bindir}/php82-config
+
 %pecl_xmldir   %{_sharedstatedir}/php82/peclxml

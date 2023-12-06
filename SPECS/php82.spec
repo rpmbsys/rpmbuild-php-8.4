@@ -146,7 +146,7 @@
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: %{php_main}
-Version: 8.2.5
+Version: 8.2.13
 Release: %{rpmrel}%{?dist}
 
 # All files licensed under PHP version 3.01, except
@@ -156,7 +156,7 @@ Release: %{rpmrel}%{?dist}
 # ext/date/lib is MIT
 # Zend/zend_sort is NCSA
 # Zend/asm is Boost
-License: PHP and Zend and BSD and MIT and ASL 1.0 and NCSA and Boost
+License: PHP-3.01 AND Zend-2.0 AND BSD-2-Clause AND MIT AND Apache-1.0 AND NCSA AND BSL-1.0
 URL: http://www.php.net/
 
 Source0: https://www.php.net/distributions/php-%{version}.tar.xz
@@ -204,7 +204,7 @@ Patch8: php-8.1.0-libdb.patch
 # Use system nikic/php-parser
 Patch41: php-8.2.0-parser.patch
 # use system tzdata
-Patch42: php-8.1.0-systzdata-v23.patch
+Patch42: php-8.1.0-systzdata-v24.patch
 # See http://bugs.php.net/53436
 Patch43: php-7.4.0-phpize.patch
 # Use -lldap_r for OpenLDAP
@@ -305,7 +305,8 @@ Summary: Common files for PHP
 # regex, libmagic are licensed under BSD
 # libmbfl is licensed under LGPLv2
 # ucgendat is licensed under OpenLDAP
-License: PHP and BSD and LGPLv2 and OpenLDAP
+License: PHP-3.01 AND BSD-2-Clause AND LGPL-2.1-only AND OLDAP-2.8
+Requires: tzdata
 # ABI/API check - Arch specific
 Provides: php(api) = %{apiver}%{isasuffix}
 Provides: php(zend-abi) = %{zendver}%{isasuffix}
@@ -437,7 +438,7 @@ package and the %{php_cli} package.
 
 Summary: Command-line interface for PHP
 # sapi/cli/ps_title.c is PostgreSQL
-License: PHP and Zend and BSD and MIT and ASL 1.0 and NCSA and PostgreSQL
+License: PHP-3.01 AND Zend-2.0 AND BSD-2-Clause AND MIT AND Apache-1.0 AND NCSA AND PostgreSQL
 BuildRequires: pkgconfig(libedit)
 Requires: %{php_common}%{?_isa} = %{version}-%{baserel}
 Provides: %{php_cli}%{?_isa} = %{version}-%{baserel}
@@ -482,7 +483,6 @@ any size, especially busier sites.
 
 %if %{with_devel}
 %package devel
-Group: Development/Libraries
 Summary: Files needed for building PHP extensions
 Requires: %{php_cli}%{?_isa} = %{version}-%{baserel}
 Requires: automake
@@ -507,8 +507,7 @@ need to install this package.
 %if %{with_opcache}
 %package opcache
 Summary:   The Zend OPcache
-Group:     Development/Languages
-License:   PHP
+License:   PHP-3.01
 Requires: %{php_common}%{?_isa} = %{version}-%{baserel}
 Provides:  php-pecl-zendopcache = %{version}
 Provides:  php-pecl-zendopcache%{?_isa} = %{version}
@@ -529,7 +528,7 @@ bytecode optimization patterns that make code execution faster.
 Summary: A module for PHP applications which use XML
 
 # All files licensed under PHP version 3.01, except
-License: PHP
+License:  PHP-3.01
 Requires: %{php_common}%{?_isa} = %{version}-%{baserel}
 # This extension is enabled by default
 Provides: php-dom, php-dom%{?_isa}
@@ -557,7 +556,7 @@ and performing XSL transformations on XML documents.
 Summary: A PostgreSQL database module for PHP
 
 # All files licensed under PHP version 3.01
-License: PHP
+License:  PHP-3.01
 BuildRequires: postgresql-devel
 Requires: %{php_common}%{?_isa} = %{version}-%{baserel}
 %global with_modules 1
@@ -577,7 +576,7 @@ Summary: A module for PHP applications that use ODBC databases
 
 # All files licensed under PHP version 3.01, except
 # pdo_odbc is licensed under PHP version 3.0
-License: PHP
+License:  PHP-3.01
 Requires: %{php_common}%{?_isa} = %{version}-%{baserel}
 BuildRequires: unixODBC-devel
 %global with_modules 1
@@ -598,7 +597,7 @@ Summary: A module for PHP applications for using the bcmath library
 
 # All files licensed under PHP version 3.01, except
 # libbcmath is licensed under LGPLv2+
-License: PHP and LGPLv2+
+License:  PHP-3.01 AND LGPL-2.1-or-later
 # only available if PHP was configured with --enable-bcmath
 Requires: %{php_common}%{?_isa} = %{version}-%{baserel}
 %global with_modules 1
@@ -613,7 +612,7 @@ support for using the bcmath library to PHP.
 Summary: A module for PHP applications that use LDAP
 
 # All files licensed under PHP version 3.01
-License: PHP
+License:  PHP-3.01
 Requires: %{php_common}%{?_isa} = %{version}-%{baserel}
 BuildRequires: pkgconfig(libsasl2)
 BuildRequires: openldap-devel
@@ -631,7 +630,7 @@ language.
 Summary: Modules for PHP script using system process interfaces
 
 # All files licensed under PHP version 3.01
-License: PHP
+License:  PHP-3.01
 Requires: %{php_common}%{?_isa} = %{version}-%{baserel}
 Provides: php-posix, php-posix%{?_isa}
 Provides: php-shmop, php-shmop%{?_isa}
@@ -650,8 +649,7 @@ communication.
 %package sodium
 Summary: Wrapper for the Sodium cryptographic library
 # All files licensed under PHP version 3.0.1
-License: PHP
-Group: System Environment/Libraries
+License:  PHP-3.01
 BuildRequires:  pkgconfig(libsodium) >= 1.0.9
 
 Requires: %{php_common}%{?_isa} = %{version}-%{baserel}
@@ -669,8 +667,7 @@ low-level PHP extension for the libsodium cryptographic library.
 %package ffi
 Summary: Foreign Function Interface
 # All files licensed under PHP version 3.0.1
-License: PHP
-Group: System Environment/Libraries
+License:  PHP-3.01
 BuildRequires:  pkgconfig(libffi)
 Requires: %{php_common}%{?_isa} = %{version}-%{baserel}
 %global with_modules 1
@@ -688,7 +685,7 @@ in pure PHP.
 %package tidy
 Summary: Standard PHP module provides tidy library support
 # All files licensed under PHP version 3.01
-License: PHP
+License:  PHP-3.01
 BuildRequires: libtidy-devel
 Requires: %{php_common}%{?_isa} = %{version}-%{baserel}
 %global with_modules 1
@@ -702,7 +699,7 @@ support for using the tidy library to PHP.
 %package sockets
 Summary: Standard PHP module provides BSD sockets support
 # All files licensed under PHP version 3.01
-License: PHP
+License:  PHP-3.01
 Requires: %{php_common}%{?_isa} = %{version}-%{baserel}
 %global with_modules 1
 
@@ -721,25 +718,25 @@ possibility to act as a socket server as well as a client.
 
 %setup -q -n php-%{version}
 
-%patch1 -p1
+%patch -P1 -p1 -b .mpmcheck
 
 %if %{with_relocation}
 %patch405 -p1
 %else
-%patch5 -p1
+%patch -P5 -p1 -b .includedir
 %endif
 
-%patch8 -p1
+%patch -P8 -p1 -b .libdb
 
 %if %{with_relocation}
 %patch409 -p1
 %endif
 
-%patch41 -p1
-%patch42 -p1
-%patch43 -p1
-%patch45 -p1
-%patch47 -p1
+%patch -P41 -p1 -b .syslib
+%patch -P42 -p1 -b .systzdata
+%patch -P43 -p1 -b .headers
+%patch -P45 -p1 -b .ldap_r
+%patch -P47 -p1 -b .phpinfo
 
 %patch60 -p1
 
@@ -748,7 +745,7 @@ possibility to act as a socket server as well as a client.
 # security patches
 
 # Fixes for tests
-%patch300 -p1
+%patch -P300 -p1 -b .datetests
 
 # Prevent %%doc confusion over LICENSE files
 cp Zend/LICENSE ZEND_LICENSE
@@ -1234,12 +1231,12 @@ install -m 755 -d $RPM_BUILD_ROOT%{_sysconfdir}/systemd/system/%{fpm_service_d}
 install -m 755 -d $RPM_BUILD_ROOT%{_unitdir}
 %if %{with_relocation}
 install -m 644 %{SOURCE106} $RPM_BUILD_ROOT%{_unitdir}/%{fpm_unit}
-install -D -m 644 %{SOURCE112} $RPM_BUILD_ROOT%{_unitdir}/httpd.service.d/%{fpm_service}.conf
-install -D -m 644 %{SOURCE112} $RPM_BUILD_ROOT%{_unitdir}/nginx.service.d/%{fpm_service}.conf
+install -D -m 644 %{SOURCE112} $RPM_BUILD_ROOT%{_sysconfdir}/systemd/system/httpd.service.d/%{fpm_service}.conf
+install -D -m 644 %{SOURCE112} $RPM_BUILD_ROOT%{_sysconfdir}/systemd/system/nginx.service.d/%{fpm_service}.conf
 %else
 install -m 644 %{SOURCE6} $RPM_BUILD_ROOT%{_unitdir}/%{fpm_unit}
-install -D -m 644 %{SOURCE12} $RPM_BUILD_ROOT%{_unitdir}/httpd.service.d/%{fpm_service}.conf
-install -D -m 644 %{SOURCE12} $RPM_BUILD_ROOT%{_unitdir}/nginx.service.d/%{fpm_service}.conf
+install -D -m 644 %{SOURCE12} $RPM_BUILD_ROOT%{_sysconfdir}/systemd/system/httpd.service.d/%{fpm_service}.conf
+install -D -m 644 %{SOURCE12} $RPM_BUILD_ROOT%{_sysconfdir}/systemd/system/nginx.service.d/%{fpm_service}.conf
 %endif
 %endif
 
@@ -1471,8 +1468,8 @@ exit 0
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{fpm_logrotate}
 %dir %{_sysconfdir}/systemd/system/%{fpm_service_d}
 %{_unitdir}/%{fpm_unit}
-%{_unitdir}/httpd.service.d/%{fpm_service}.conf
-%{_unitdir}/nginx.service.d/%{fpm_service}.conf
+%config(noreplace) %{_sysconfdir}/systemd/system/httpd.service.d/%{fpm_service}.conf
+%config(noreplace) %{_sysconfdir}/systemd/system/nginx.service.d/%{fpm_service}.conf
 %dir %{fpm_config_d}
 # log owned by apache for log
 %attr(770,nginx,root) %dir %{fpm_logdir}
@@ -1539,6 +1536,38 @@ exit 0
 %endif
 
 %changelog
+* Tue Nov 21 2023 Remi Collet <remi@remirepo.net> - 8.2.13-1
+- Update to 8.2.13 - http://www.php.net/releases/8_2_13.php
+
+* Wed Oct 25 2023 Remi Collet <remi@remirepo.net> - 8.2.12-1
+- Update to 8.2.12 - http://www.php.net/releases/8_2_12.php
+- add internal UTC if tzdata is missing
+
+* Tue Sep 26 2023 Remi Collet <remi@remirepo.net> - 8.2.11-1
+- Update to 8.2.11 - http://www.php.net/releases/8_2_11.php
+
+* Tue Sep 19 2023 Remi Collet <remi@remirepo.net> - 8.2.10-2
+- require tzdata
+
+* Tue Aug 29 2023 Remi Collet <remi@remirepo.net> - 8.2.10-1
+- Update to 8.2.10 - http://www.php.net/releases/8_2_10.php
+
+* Thu Aug  3 2023 Remi Collet <remi@remirepo.net> - 8.2.9-2
+- Update to 8.2.9 - http://www.php.net/releases/8_2_9.php
+
+* Wed Jul  5 2023 Remi Collet <remi@remirepo.net> - 8.2.8-2
+- move httpd/nginx wants directive to config files in /etc
+
+* Wed Jul  5 2023 Remi Collet <remi@remirepo.net> - 8.2.8-1
+- Update to 8.2.8 - http://www.php.net/releases/8_2_8.php
+
+* Wed Jun  7 2023 Remi Collet <remi@remirepo.net> - 8.2.7-2
+- Update to 8.2.7 - http://www.php.net/releases/8_2_7.php
+
+* Wed May 10 2023 Remi Collet <remi@remirepo.net> - 8.2.6-1
+- Update to 8.2.6 - http://www.php.net/releases/8_2_6.php
+- use SPDX license IDs
+
 * Wed Apr 12 2023 Remi Collet <remi@remirepo.net> - 8.2.5-1
 - Update to 8.2.5 - http://www.php.net/releases/8_2_5.php
 
