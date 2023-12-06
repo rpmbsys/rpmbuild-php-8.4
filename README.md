@@ -7,7 +7,7 @@ Sections `Prerequisites` and `Setup` should be done only once per build host
 * Docker CE 17.12.0+ (https://docs.docker.com/install/)
 * Docker Compose 1.10+ (https://github.com/docker/compose/releases/)
 
-### PHP 8.1 Requirements
+### PHP 8.3 Requirements
 
 ### Prerequisites
 
@@ -43,8 +43,8 @@ Sections `Prerequisites` and `Setup` should be done only once per build host
 1. Clone build repo with submodules:
 
     ```
-    git clone --recursive https://github.com/aursu/rpmbuild-php-8.1.git
-    cd rpmbuild-php-8.1
+    git clone --recursive https://github.com/aursu/rpmbuild-php-8.3.git
+    cd rpmbuild-php-8.3
     ```
 
 ### Build process

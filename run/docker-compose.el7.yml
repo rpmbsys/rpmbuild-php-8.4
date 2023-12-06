@@ -5,18 +5,18 @@ services:
       context: .
       args:
         centos: $OS7
-    image: aursu/php82build:${OS7TAG}-runtime
+    image: aursu/php83build:${OS7TAG}-runtime
   centos7devbase:
     build:
       context: .
       args:
         centos: $OS7
         image: node14dev
-    image: aursu/php82build:${OS7TAG}-devbase
+    image: aursu/php83build:${OS7TAG}-devbase
   centos7dev2base:
     build:
       context: .
       args:
         centos: $OS7
         image: node16dev
-    image: aursu/php82build:${OS7TAG}-dev2base
+    image: aursu/php83build:${OS7TAG}-dev2base

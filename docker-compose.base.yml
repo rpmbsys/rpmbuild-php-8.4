@@ -6,18 +6,18 @@ services:
       dockerfile: Dockerfile.7-base
       args:
         centos: $OS7
-    image: "aursu/php82build:${OS7}-base"
+    image: "aursu/php83build:${OS7}-base"
   rocky8base:
     build:
       context: .
       dockerfile: Dockerfile.base
       args:
         os: $RL8
-    image: "aursu/php82build:${RL8TAG}-base"
+    image: "aursu/php83build:${RL8TAG}-base"
   stream9base:
     build:
       context: .
       dockerfile: Dockerfile.base
       args:
         os: $OS9
-    image: "aursu/php82build:${OS9TAG}-base"
+    image: "aursu/php83build:${OS9TAG}-base"

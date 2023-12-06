@@ -5,37 +5,37 @@ services:
       context: dev
       args:
         os: $OS7
-    image: "aursu/php82build:${OS7TAG}-dev"
+    image: "aursu/php83build:${OS7TAG}-dev"
   rocky8dev:
     build:
       context: dev
       args:
         os: $RL8
-    image: "aursu/php82build:${RL8TAG}-dev"
+    image: "aursu/php83build:${RL8TAG}-dev"
   stream9dev:
     build:
       context: dev
       args:
         os: $OS9
-    image: "aursu/php82build:${OS9TAG}-dev"
+    image: "aursu/php83build:${OS9TAG}-dev"
   centos7dev2:
     build:
       context: dev
       args:
         os: $OS7
         image: dev2base
-    image: "aursu/php82build:${OS7TAG}-dev2"
+    image: "aursu/php83build:${OS7TAG}-dev2"
   rocky8dev2:
     build:
       context: dev
       args:
         os: $RL8
         image: dev2base
-    image: "aursu/php82build:${RL8TAG}-dev2"
+    image: "aursu/php83build:${RL8TAG}-dev2"
   stream9dev2:
     build:
       context: dev
       args:
         os: $OS9
         image: dev2base
-    image: "aursu/php82build:${OS9TAG}-dev2"
+    image: "aursu/php83build:${OS9TAG}-dev2"
