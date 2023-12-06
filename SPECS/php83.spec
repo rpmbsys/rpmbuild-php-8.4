@@ -110,7 +110,7 @@
 %global pdover      20170320
 # Extension version
 %global fileinfover 1.0.5
-%global zipver      1.21.1
+%global zipver      1.22.3
 
 # we don't want -z defs linker flag
 %undefine _strict_symbol_defs_build
