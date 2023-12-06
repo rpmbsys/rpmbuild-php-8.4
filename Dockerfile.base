@@ -4,6 +4,7 @@ FROM aursu/rpmbuild:${os}-build
 USER root
 RUN dnf -y install \
         bzip2-devel \
+        capstone-devel \
         cyrus-sasl-devel \
         freetype-devel \
         gdbm-devel \

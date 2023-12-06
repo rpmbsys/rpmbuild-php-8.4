@@ -4,6 +4,7 @@ FROM aursu/rpmbuild:${centos}-build
 USER root
 RUN yum -y install \
         bzip2-devel \
+        capstone-devel \
         cyrus-sasl-devel \
         freetype-devel \
         gdbm-devel \
