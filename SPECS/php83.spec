@@ -719,7 +719,10 @@ possibility to act as a socket server as well as a client.
 : Enable Dtrace build
 %endif
 
+# CentOS 7: gpgv: Can't check signature: Invalid public key algorithm
+%if 0%{?fedora} || 0%{?rhel} >= 8
 %{?gpgverify:%{gpgverify} --keyring='%{SOURCE20}' --signature='%{SOURCE21}' --data='%{SOURCE0}'}
+%endif
 
 %setup -q -n php-%{version}
 
