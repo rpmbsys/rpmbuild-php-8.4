@@ -8,11 +8,11 @@ After=syslog.target network.target
 
 [Service]
 Type=notify
-PIDFile=/run/php82-fpm/php82-fpm.pid
-ExecStart=/usr/sbin/php82-fpm --nodaemonize
+PIDFile=/run/php83-fpm/php83-fpm.pid
+ExecStart=/usr/sbin/php83-fpm --nodaemonize
 ExecReload=/bin/kill -USR2 $MAINPID
 PrivateTmp=true
-RuntimeDirectory=php82-fpm
+RuntimeDirectory=php83-fpm
 RuntimeDirectoryMode=0755
 
 [Install]
