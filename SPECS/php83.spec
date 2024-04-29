@@ -141,12 +141,12 @@
 %bcond_without         dtrace
 %bcond_without         zip
 
-%global rpmrel 2
+%global rpmrel 1
 %global baserel %{rpmrel}%{?dist}
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: %{php_main}
-Version: 8.3.0
+Version: 8.3.6
 Release: %{rpmrel}%{?dist}
 
 # All files licensed under PHP version 3.01, except
@@ -202,7 +202,7 @@ Patch8: php-8.1.0-libdb.patch
 
 # Functional changes
 # Use system nikic/php-parser
-Patch41: php-8.3.0-parser.patch
+Patch41: php-8.3.3-parser.patch
 # use system tzdata
 Patch42: php-8.3.0-systzdata-v24.patch
 # See http://bugs.php.net/53436
@@ -499,7 +499,7 @@ Requires: openssl-devel%{?_isa} >= 1.0.2
 Requires: pcre2-devel%{?_isa}
 Requires: zlib-devel%{?_isa}
 %if 0%{?fedora} || 0%{?rhel} >= 8
-Recommends: php-nikic-php-parser5 >= 5.0.0~alpha3
+Recommends: php-nikic-php-parser5 >= 5.0.0
 %endif
 
 %description devel
@@ -1548,6 +1548,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Apr 10 2024 Remi Collet <remi@remirepo.net> - 8.3.6-1
+- Update to 8.3.6 - http://www.php.net/releases/8_3_6.php
+
 * Thu Nov 30 2023 Remi Collet <remi@remirepo.net> - 8.3.0-2
 - rebuild for libcapstone
 

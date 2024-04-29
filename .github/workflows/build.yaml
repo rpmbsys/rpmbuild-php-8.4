@@ -8,11 +8,11 @@ env:
   DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
   BINTRAY_REPO: php83custom
   OS7: 7.9.2009
-  RL8: 8.8.20230518
+  RL8: 8.9.20231119
   OS7TAG: 7.9.2009
-  RL8TAG: 8.8.20230518
-  OS9: stream9-20231016.0
-  OS9TAG: stream9-20231016.0
+  RL8TAG: 8.9.20231119
+  OS9: stream9-20240226.1
+  OS9TAG: stream9-20240226.1
 jobs:
   test:
     runs-on: ubuntu-latest
