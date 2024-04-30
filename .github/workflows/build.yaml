@@ -11,8 +11,8 @@ env:
   RL8: 8.9.20231119
   OS7TAG: 7.9.2009
   RL8TAG: 8.9.20231119
-  OS9: stream9-20240226.1
-  OS9TAG: stream9-20240226.1
+  OS9: stream9-20240429.0
+  OS9TAG: stream9-20240429.0
 jobs:
   test:
     runs-on: ubuntu-latest
