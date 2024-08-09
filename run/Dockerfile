@@ -1,10 +1,10 @@
-ARG centos=7.9.2009
+ARG rocky=9.4.20240523
 ARG image=web
-FROM aursu/centos:${centos}-${image}
+FROM aursu/rockylinux:${rocky}-${image}
 
-COPY system/etc/yum.repos.d/bintray-custom.repo /etc/yum.repos.d/bintray-custom.repo
+COPY system/etc/yum.repos.d/bintray-custom-rocky.repo /etc/yum.repos.d/bintray-custom.repo
 
-RUN yum -y --enablerepo=bintray-custom --enablerepo=bintray-phpcustom install \
+RUN microdnf -y --enablerepo=bintray-custom --enablerepo=bintray-phpcustom install \
         php-bcmath \
         php-cli \
         php-fpm \
@@ -16,7 +16,7 @@ RUN yum -y --enablerepo=bintray-custom --enablerepo=bintray-phpcustom install \
         php-pecl-redis5 \
         php-sodium \
         php-xml \
-    && yum clean all && rm -rf /var/cache/yum /var/lib/rpm/__db*
+    && microdnf clean all && rm -rf /var/cache/dnf /var/lib/rpm/__db*
 
 # php-fpm configuration
 COPY system/etc/php-fpm.conf /etc/php-fpm.conf

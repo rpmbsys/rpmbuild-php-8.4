@@ -1,0 +1,21 @@
+services:
+  rocky8run:
+    build:
+      context: .
+      args:
+        rocky: $RL9
+    image: "aursu/php83build:${RL9TAG}-runtime"
+  rocky8devbase:
+    build:
+      context: .
+      args:
+        image: node18dev
+        rocky: $RL9
+    image: "aursu/php83build:${RL9TAG}-devbase"
+  rocky8dev2base:
+    build:
+      context: .
+      args:
+        image: node20dev
+        rocky: $RL9
+    image: "aursu/php83build:${RL9TAG}-dev2base"

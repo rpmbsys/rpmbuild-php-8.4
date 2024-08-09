@@ -1,12 +1,4 @@
-version: "3"
 services:
-  centos7base:
-    build:
-      context: .
-      dockerfile: Dockerfile.7-base
-      args:
-        centos: $OS7
-    image: "aursu/php83build:${OS7}-base"
   rocky8base:
     build:
       context: .
@@ -14,6 +6,13 @@ services:
       args:
         os: $RL8
     image: "aursu/php83build:${RL8TAG}-base"
+  rocky9base:
+    build:
+      context: .
+      dockerfile: Dockerfile.base
+      args:
+        os: $RL9
+    image: "aursu/php83build:${RL9TAG}-base"
   stream9base:
     build:
       context: .

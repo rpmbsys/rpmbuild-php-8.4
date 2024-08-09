@@ -1,20 +1,20 @@
 services:
-  rocky8build:
+  rocky9build:
     volumes:
-      - rpm8rocky:/home/centos/rpmbuild/RPMS
+      - rpm9rocky:/home/centos/rpmbuild/RPMS
     build:
       context: .
       args:
-        os: $RL8
-  rocky8buildreloc:
+        os: $RL9
+  rocky9buildreloc:
     command: ["-ba", "--with", "relocation"]
     volumes:
-      - rpm8rocky:/home/centos/rpmbuild/RPMS
+      - rpm9rocky:/home/centos/rpmbuild/RPMS
     build:
       context: .
       args:
-        os: $RL8
+        os: $RL9
 
 volumes:
   rpm8rocky:
-    name: rpm8rocky
+    name: rpm9rocky

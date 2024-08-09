@@ -1,11 +1,4 @@
-version: "3"
 services:
-  centos7build:
-    build:
-      context: .
-      args:
-        centos: $OS7
-    image: "aursu/php83build:${OS7TAG}-build"
   rocky8build:
     build:
       context: .
@@ -13,6 +6,12 @@ services:
       args:
         centos: $RL8
     image: "aursu/php83build:${RL8TAG}-build"
+  rocky9build:
+    build:
+      context: .
+      args:
+        centos: $RL9
+    image: "aursu/php83build:${RL9TAG}-build"
   stream9build:
     build:
       context: .

@@ -1,14 +1,14 @@
-ARG centos=7.9.2009
-FROM aursu/rpmbuild:${centos}-build
+ARG rocky=9.4.20240523
+FROM aursu/rpmbuild:${rocky}-build
 
 USER root
 
-COPY system/etc/yum.repos.d/bintray-custom.repo /etc/yum.repos.d/bintray-custom.repo
+COPY system/etc/yum.repos.d/bintray-custom-rocky.repo /etc/yum.repos.d/bintray-custom.repo
 
-RUN yum -y --enablerepo=bintray-custom --enablerepo=bintray-phpcustom install \
+RUN dnf -y --enablerepo=bintray-custom --enablerepo=bintray-phpcustom install \
         php-cli \
         php-common \
         php-devel \
         php-process \
         php-xml \
-    && yum clean all && rm -rf /var/cache/yum /var/lib/rpm/__db*
+    && dnf clean all && rm -rf /var/cache/dnf /var/lib/rpm/__db*
