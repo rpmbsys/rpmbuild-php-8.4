@@ -25,6 +25,7 @@
 %global with_sockets 0%{!?_without_sockets:1}
 %global with_devel 0%{!?_without_devel:1}
 %global with_common 0%{!?_without_common:1}
+%global with_imap 0%{!?_without_imap:1}
 
 # we do not know for sure if any of shared module enabled
 %global with_modules 0
@@ -239,7 +240,9 @@ BuildRequires: gcc-c++
 BuildRequires: gdbm-devel
 BuildRequires: httpd-devel >= 2.4
 BuildRequires: libacl-devel
+%if %{with_imap}
 BuildRequires: libc-client-devel
+%endif
 BuildRequires: libdb-devel
 BuildRequires: libstdc++-devel
 BuildRequires: libtool >= 1.4.3
@@ -351,8 +354,10 @@ Provides: php-gettext, php-gettext%{?_isa}
 Provides: php-hash, php-hash%{?_isa}
 # This extension is enabled by default
 Provides: php-iconv, php-iconv%{?_isa}
+%if %{with_imap}
 # To get these functions to work, you have to compile PHP with --with-imap
 Provides: php-imap, php-imap%{?_isa}
+%endif
 # extension may be installed using the bundled version as of PHP 5.3.0, --enable-intl will enable the bundled version
 Provides: php-intl, php-intl%{?_isa}
 # As of PHP 5.2.0, the JSON extension is bundled and compiled into PHP by default
@@ -950,8 +955,10 @@ ln -sf ../configure
 %endif
     --with-freetype=%{_prefix} \
     --with-gettext \
+%if %{with_imap}
     --with-imap \
     --with-imap-ssl \
+%endif
     --with-jpeg=%{_prefix} \
     --with-kerberos \
     --with-layout=GNU \
