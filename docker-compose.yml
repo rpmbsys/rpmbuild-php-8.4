@@ -16,5 +16,5 @@ services:
         os: $RL9
 
 volumes:
-  rpm8rocky:
+  rpm9rocky:
     name: rpm9rocky
