@@ -4,7 +4,7 @@ FROM aursu/rockylinux:${rocky}-${image}
 
 COPY system/etc/yum.repos.d/bintray-custom-rocky.repo /etc/yum.repos.d/bintray-custom.repo
 
-RUN microdnf -y --enablerepo=bintray-custom --enablerepo=bintray-phpcustom install \
+RUN microdnf -y --enablerepo=crb --enablerepo=bintray-custom --enablerepo=bintray-phpcustom install \
         php-bcmath \
         php-cli \
         php-fpm \
