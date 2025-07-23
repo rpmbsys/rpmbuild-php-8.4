@@ -6,7 +6,7 @@ Sections `Prerequisites` and `Setup` should be done only once per build host
 
 * Docker CE 20.10.0+ (https://docs.docker.com/install/)
 
-### PHP 8.3 Requirements
+### PHP 8.4 Requirements
 
 ### Prerequisites
 

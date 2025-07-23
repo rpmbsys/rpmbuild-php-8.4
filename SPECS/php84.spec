@@ -1133,7 +1133,7 @@ make -C build-apache install-binaries \
 %if %{with_cli}
 make -C build-cli install-cli \
 %if %{with_devel}
-    install-build install-headers install-pdo-headers \
+    install-build install-headers \
 %endif
     install-pharcmd \
     install-programs \
