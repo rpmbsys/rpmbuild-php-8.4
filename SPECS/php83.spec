@@ -25,7 +25,6 @@
 %global with_sockets 0%{!?_without_sockets:1}
 %global with_devel 0%{!?_without_devel:1}
 %global with_common 0%{!?_without_common:1}
-%global with_imap 0%{!?_without_imap:1}
 
 # we do not know for sure if any of shared module enabled
 %global with_modules 0
@@ -45,16 +44,16 @@
 %global with_relocation 0%{?_with_relocation:1}
 
 %if %{with_relocation}
-%global program_suffix      83
-%global main_name           php83
-%global fpm_name            php83-fpm
-%global php_sysconfdir      %{_sysconfdir}/php83
-%global php_datadir         %{_datadir}/php83
+%global program_suffix      84
+%global main_name           php84
+%global fpm_name            php84-fpm
+%global php_sysconfdir      %{_sysconfdir}/php84
+%global php_datadir         %{_datadir}/php84
 %global pear_datadir        %{php_datadir}/pear
-%global php_docdir          %{_docdir}/php83
+%global php_docdir          %{_docdir}/php84
 %global tests_datadir       %{php_datadir}/tests
 # configured by relocation patch (in other words - hardcoded)
-%global fpm_config_name     php83-fpm.conf
+%global fpm_config_name     php84-fpm.conf
 %global fpm_config_d        %{php_sysconfdir}/php%{program_suffix}-fpm.d
 %global bin_phar            phar%{program_suffix}
 %global bin_cli             php%{program_suffix}
@@ -64,7 +63,7 @@
 %global bin_fpm             php%{program_suffix}-fpm
 %global bin_php_config      php%{program_suffix}-config
 %global fpm_datadir         %{_datadir}/php%{program_suffix}-fpm
-%global php_includedir      %{_includedir}/php83
+%global php_includedir      %{_includedir}/php84
 %else
 %global main_name           php
 %global fpm_name            php-fpm
@@ -106,9 +105,9 @@
 %global fpm_unit            %{fpm_service}.service
 %global fpm_logrotate       %{fpm_service}
 
-%global apiver      20230831
-%global zendver     20230831
-%global pdover      20170320
+%global apiver      20240924
+%global zendver     20240924
+%global pdover      20240423
 # Extension version
 %global fileinfover 1.0.5
 %global zipver      1.22.3
@@ -121,11 +120,7 @@
 
 # Use the arch-specific mysql_config binary to avoid mismatch with the
 # arch detection heuristic used by bindir/mysql_config.
-%if 0%{?fedora}
-%global mysql_config %{_bindir}/mysql_config
-%else
 %global mysql_config %{_libdir}/mysql/mysql_config
-%endif
 
 %global mysql_sock %(mysql_config --socket 2>/dev/null || echo /var/lib/mysql/mysql.sock)
 
@@ -147,7 +142,7 @@
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: %{php_main}
-Version: 8.3.23
+Version: 8.4.10
 Release: %{rpmrel}%{?dist}
 
 # All files licensed under PHP version 3.01, except
@@ -184,41 +179,39 @@ Source51: opcache-default.blacklist
 Source53: 20-ffi.ini
 
 # relocation resources
-Source101: php83-php.conf
-Source103: php83-macros.php
-Source104: php83-php-fpm.conf
-Source105: php83-php-fpm-www.conf
-Source106: php83-php-fpm.service
-Source107: php83-php-fpm.logrotate
-Source112: php83-php-fpm.wants
-Source113: php83-nginx-fpm.conf
-Source114: php83-nginx-php.conf
-Source150: php83-10-opcache.ini
-Source153: php83-20-ffi.ini
+Source101: php84-php.conf
+Source103: php84-macros.php
+Source104: php84-php-fpm.conf
+Source105: php84-php-fpm-www.conf
+Source106: php84-php-fpm.service
+Source107: php84-php-fpm.logrotate
+Source112: php84-php-fpm.wants
+Source113: php84-nginx-fpm.conf
+Source114: php84-nginx-php.conf
+Source150: php84-10-opcache.ini
+Source153: php84-20-ffi.ini
 
 # Build fixes
-Patch1: php-7.4.0-httpd.patch
-Patch5: php-7.2.0-includedir.patch
-Patch8: php-8.1.0-libdb.patch
+Patch1: php-8.4.0-httpd.patch
+Patch5: php-8.4.0-includedir.patch
+Patch8: php-8.4.0-libdb.patch
 
 # Functional changes
 # Use system nikic/php-parser
 Patch41: php-8.3.3-parser.patch
 # use system tzdata
-Patch42: php-8.3.11-systzdata-v24.patch
+Patch42: php-8.4.0-systzdata-v24.patch
 # See http://bugs.php.net/53436
 # + display PHP version backported from 8.4
-Patch43: php-7.4.0-phpize.patch
+Patch43: php-8.4.0-phpize.patch
 # Use -lldap_r for OpenLDAP
-Patch45: php-7.4.0-ldap_r.patch
+Patch45: php-8.4.0-ldap_r.patch
 # drop "Configure command" from phpinfo output
 # and only use gcc (instead of full version)
-Patch47: php-8.3.13-phpinfo.patch
+Patch47: php-8.4.0-phpinfo.patch
 # Always warn about missing curve_name
 # Both Fedora and RHEL do not support arbitrary EC parameters
 Patch48: php-8.3.0-openssl-ec-param.patch
-# Backport Argon2 password hashing in OpenSSL ext
-Patch49: php-8.3.7-argon2.patch
 
 Patch60: php-5.6.31-no-scan-dir-override.patch
 
@@ -231,7 +224,7 @@ Patch60: php-5.6.31-no-scan-dir-override.patch
 Patch300: php-7.4.0-datetests.patch
 
 # relocation (400+)
-Patch405: php83-php-7.2.0-includedir.patch
+Patch405: php84-php-7.2.0-includedir.patch
 Patch409: php-7.0.8-relocation.patch
 
 BuildRequires: autoconf >= 2.64
@@ -242,9 +235,6 @@ BuildRequires: gcc-c++
 BuildRequires: gdbm-devel
 BuildRequires: httpd-devel >= 2.4
 BuildRequires: libacl-devel
-%if %{with_imap}
-BuildRequires: libc-client-devel
-%endif
 BuildRequires: libdb-devel
 BuildRequires: libstdc++-devel
 BuildRequires: libtool >= 1.4.3
@@ -265,9 +255,8 @@ BuildRequires: pkgconfig(libjpeg)
 BuildRequires: pkgconfig(libpcre2-8) >= 10.30
 BuildRequires: pkgconfig(libpng)
 BuildRequires: pkgconfig(libwebp)
-%if 0%{?rhel} >= 8
 BuildRequires: pkgconfig(libxcrypt)
-%endif
+BuildRequires: libxcrypt-devel
 BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(oniguruma) >= 6.8
 BuildRequires: pkgconfig(sqlite3) >= 3.7.4
@@ -275,7 +264,7 @@ BuildRequires: pkgconfig(zlib) >= 1.2.0.4
 BuildRequires: smtpdaemon
 %if %{with dtrace}
 BuildRequires: %{?dtsprefix}systemtap-sdt-devel
-%if 0%{?fedora} >= 41 || 0%{?rhel} >= 10
+%if 0%{?fedora} >= 41
 BuildRequires: systemtap-sdt-dtrace
 %endif
 %endif
@@ -359,10 +348,6 @@ Provides: php-gettext, php-gettext%{?_isa}
 Provides: php-hash, php-hash%{?_isa}
 # This extension is enabled by default
 Provides: php-iconv, php-iconv%{?_isa}
-%if %{with_imap}
-# To get these functions to work, you have to compile PHP with --with-imap
-Provides: php-imap, php-imap%{?_isa}
-%endif
 # extension may be installed using the bundled version as of PHP 5.3.0, --enable-intl will enable the bundled version
 Provides: php-intl, php-intl%{?_isa}
 # As of PHP 5.2.0, the JSON extension is bundled and compiled into PHP by default
@@ -431,7 +416,6 @@ Provides:  php-pecl(Fileinfo) = %{fileinfover}, php-pecl(Fileinfo)%{?_isa} = %{f
 %if ! %{with_relocation}
 Obsoletes: php-dba < %{version}-%{baserel}
 Obsoletes: php-gd < %{version}-%{baserel}
-Obsoletes: php-imap < %{version}-%{baserel}
 Obsoletes: php-intl  < %{version}-%{baserel}
 Obsoletes: php-mbstring < %{version}-%{baserel}
 Obsoletes: php-pdo < %{version}-%{baserel}
@@ -756,7 +740,6 @@ possibility to act as a socket server as well as a client.
 %patch -P45 -p1 -b .ldap_r
 %patch -P47 -p1 -b .phpinfo
 %patch -P48 -p1 -b .ec-param
-%patch -P49 -p1 -b .argon2
 
 %patch -P60 -p1
 
@@ -963,12 +946,7 @@ ln -sf ../configure
 %endif
     --with-freetype=%{_prefix} \
     --with-gettext \
-%if %{with_imap}
-    --with-imap \
-    --with-imap-ssl \
-%endif
     --with-jpeg=%{_prefix} \
-    --with-kerberos \
     --with-layout=GNU \
     --with-libdir=%{_lib} \
     --with-mhash \
@@ -976,6 +954,7 @@ ln -sf ../configure
     --with-mysqli=mysqlnd \
     --with-pdo-mysql=mysqlnd \
     --with-openssl \
+    --with-openssl-argon2 \
     --without-password-argon2 \
     --with-pdo-odbc=unixODBC,%{_prefix} \
     --with-pic \
@@ -1436,8 +1415,10 @@ exit 0
 %if %{with_common}
 %files common
 %doc EXTENSIONS NEWS UPGRADING* README.REDIST.BINS *md docs
-%doc LICENSE TSRM_LICENSE ZEND_LICENSE timelib_LICENSE libmagic_LICENSE
-%doc libmbfl_LICENSE
+%license LICENSE TSRM_LICENSE ZEND_LICENSE BOOST_LICENSE
+%license libmbfl_LICENSE
+%license libmagic_LICENSE
+%license timelib_LICENSE
 %doc php.ini-*
 %config(noreplace) %{php_sysconfdir}/php.ini
 %dir %{php_sysconfdir}/php.d
@@ -1563,8 +1544,8 @@ exit 0
 %endif
 
 %changelog
-* Wed Jul  2 2025 Remi Collet <remi@remirepo.net> - 8.3.23-1
-- Update to 8.3.23 - http://www.php.net/releases/8_3_23.php
+* Wed Jul  2 2025 Remi Collet <remi@remirepo.net> - 8.4.10-1
+- Update to 8.4.10 - http://www.php.net/releases/8_4_10.php
 
 * Tue Jul 30 2024 Remi Collet <remi@remirepo.net> - 8.3.10-1
 - Update to 8.3.10 - http://www.php.net/releases/8_3_10.php

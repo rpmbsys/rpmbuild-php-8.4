@@ -38,8 +38,8 @@ Sections `Prerequisites` and `Setup` should be done only once per build host
 1. Clone build repo with submodules:
 
     ```
-    git clone --recursive https://github.com/aursu/rpmbuild-php-8.3.git
-    cd rpmbuild-php-8.3
+    git clone --recursive https://github.com/aursu/rpmbuild-php-8.4.git
+    cd rpmbuild-php-8.4
     ```
 
 ### Build process
