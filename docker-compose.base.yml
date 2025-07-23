@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile.base
       args:
         os: $RL10
-    image: "aursu/php83build:${RL8TAG}-base"
+    image: "aursu/php83build:${RL10TAG}-base"
   rocky9base:
     build:
       context: .
