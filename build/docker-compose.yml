@@ -3,11 +3,11 @@ services:
     build:
       context: .
       args:
-        centos: $RL10
+        rocky: $RL10
     image: "aursu/php83build:${RL10TAG}-build"
   rocky9build:
     build:
       context: .
       args:
-        centos: $RL9
+        rocky: $RL9
     image: "aursu/php83build:${RL9TAG}-build"

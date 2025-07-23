@@ -931,6 +931,7 @@ ln -sf ../configure
     --cache-file=../config.cache \
     --disable-debug \
     --disable-phpdbg \
+    --disable-rpath \
     --enable-calendar \
     --enable-dba --with-db4=%{_prefix} --with-gdbm \
     --enable-exif \

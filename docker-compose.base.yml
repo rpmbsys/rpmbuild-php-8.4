@@ -11,5 +11,5 @@ services:
       context: .
       dockerfile: Dockerfile.RL9.base
       args:
-        os: $RL9
+        rocky: $RL9
     image: "aursu/php83build:${RL9TAG}-base"
