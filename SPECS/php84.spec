@@ -110,7 +110,7 @@
 %global pdover      20240423
 # Extension version
 %global fileinfover 1.0.5
-%global zipver      1.22.3
+%global zipver      1.22.6
 
 # we don't want -z defs linker flag
 %undefine _strict_symbol_defs_build
@@ -777,10 +777,6 @@ mkdir build-fpm
 rm ext/date/tests/timezone_location_get.phpt
 rm ext/date/tests/timezone_version_get.phpt
 rm ext/date/tests/timezone_version_get_basic1.phpt
-%if 0%{?fedora} < 36
-# need tzdata 2022b
-rm ext/date/tests/bug33415-2.phpt
-%endif
 # fails sometime
 rm -f ext/sockets/tests/mcast_ipv?_recv.phpt
 # cause stack exhausion
