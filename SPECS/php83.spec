@@ -147,7 +147,7 @@
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: %{php_main}
-Version: 8.3.10
+Version: 8.3.23
 Release: %{rpmrel}%{?dist}
 
 # All files licensed under PHP version 3.01, except
@@ -205,7 +205,7 @@ Patch8: php-8.1.0-libdb.patch
 # Use system nikic/php-parser
 Patch41: php-8.3.3-parser.patch
 # use system tzdata
-Patch42: php-8.3.0-systzdata-v24.patch
+Patch42: php-8.3.11-systzdata-v24.patch
 # See http://bugs.php.net/53436
 # + display PHP version backported from 8.4
 Patch43: php-7.4.0-phpize.patch
@@ -213,10 +213,12 @@ Patch43: php-7.4.0-phpize.patch
 Patch45: php-7.4.0-ldap_r.patch
 # drop "Configure command" from phpinfo output
 # and only use gcc (instead of full version)
-Patch47: php-8.1.0-phpinfo.patch
+Patch47: php-8.3.13-phpinfo.patch
 # Always warn about missing curve_name
 # Both Fedora and RHEL do not support arbitrary EC parameters
 Patch48: php-8.3.0-openssl-ec-param.patch
+# Backport Argon2 password hashing in OpenSSL ext
+Patch49: php-8.3.7-argon2.patch
 
 Patch60: php-5.6.31-no-scan-dir-override.patch
 
@@ -273,6 +275,9 @@ BuildRequires: pkgconfig(zlib) >= 1.2.0.4
 BuildRequires: smtpdaemon
 %if %{with dtrace}
 BuildRequires: %{?dtsprefix}systemtap-sdt-devel
+%if 0%{?fedora} >= 41 || 0%{?rhel} >= 10
+BuildRequires: systemtap-sdt-dtrace
+%endif
 %endif
 BuildRequires: unixODBC-devel
 # used for tests
@@ -751,8 +756,9 @@ possibility to act as a socket server as well as a client.
 %patch -P45 -p1 -b .ldap_r
 %patch -P47 -p1 -b .phpinfo
 %patch -P48 -p1 -b .ec-param
+%patch -P49 -p1 -b .argon2
 
-%patch60 -p1
+%patch -P60 -p1
 
 # upstream patches
 
@@ -767,6 +773,7 @@ cp TSRM/LICENSE TSRM_LICENSE
 cp Zend/asm/LICENSE BOOST_LICENSE
 cp sapi/fpm/LICENSE fpm_LICENSE
 cp ext/mbstring/libmbfl/LICENSE libmbfl_LICENSE
+cp ext/fileinfo/libmagic/LICENSE libmagic_LICENSE
 cp ext/bcmath/libbcmath/LICENSE libbcmath_LICENSE
 cp ext/date/lib/LICENSE.rst timelib_LICENSE
 
@@ -1429,7 +1436,7 @@ exit 0
 %if %{with_common}
 %files common
 %doc EXTENSIONS NEWS UPGRADING* README.REDIST.BINS *md docs
-%doc LICENSE TSRM_LICENSE ZEND_LICENSE timelib_LICENSE
+%doc LICENSE TSRM_LICENSE ZEND_LICENSE timelib_LICENSE libmagic_LICENSE
 %doc libmbfl_LICENSE
 %doc php.ini-*
 %config(noreplace) %{php_sysconfdir}/php.ini
@@ -1556,6 +1563,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Jul  2 2025 Remi Collet <remi@remirepo.net> - 8.3.23-1
+- Update to 8.3.23 - http://www.php.net/releases/8_3_23.php
+
 * Tue Jul 30 2024 Remi Collet <remi@remirepo.net> - 8.3.10-1
 - Update to 8.3.10 - http://www.php.net/releases/8_3_10.php
 

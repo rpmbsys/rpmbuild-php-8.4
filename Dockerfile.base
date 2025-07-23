@@ -38,6 +38,7 @@ RUN dnf -y install \
         sqlite-devel \
         systemd-devel \
         systemtap-sdt-devel \
+        systemtap-sdt-dtrace \
         unixODBC-devel \
         zlib-devel \
     && dnf clean all && rm -rf /var/cache/dnf /var/lib/rpm/__db*
