@@ -1,4 +1,4 @@
-ARG os=9.4.20240523
+ARG os=10.0.20250606
 FROM aursu/php83build:${os}-base
 
 COPY SOURCES ${BUILD_TOPDIR}/SOURCES

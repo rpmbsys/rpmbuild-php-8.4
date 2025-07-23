@@ -1,22 +1,15 @@
 services:
-  rocky8base:
+  rocky10base:
     build:
       context: .
       dockerfile: Dockerfile.base
       args:
-        os: $RL8
+        os: $RL10
     image: "aursu/php83build:${RL8TAG}-base"
   rocky9base:
     build:
       context: .
-      dockerfile: Dockerfile.base
+      dockerfile: Dockerfile.RL9.base
       args:
         os: $RL9
     image: "aursu/php83build:${RL9TAG}-base"
-  stream9base:
-    build:
-      context: .
-      dockerfile: Dockerfile.base
-      args:
-        os: $OS9
-    image: "aursu/php83build:${OS9TAG}-base"
