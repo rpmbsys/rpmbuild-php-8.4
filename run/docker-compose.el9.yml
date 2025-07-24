@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile.el9
       args:
         centos: $OS9
-    image: "aursu/php83build:${OS9TAG}-runtime"
+    image: "aursu/php84build:${OS9TAG}-runtime"
   stream9devbase:
     build:
       context: .
@@ -13,7 +13,7 @@ services:
       args:
         image: node18dev
         centos: $OS9
-    image: "aursu/php83build:${OS9TAG}-devbase"
+    image: "aursu/php84build:${OS9TAG}-devbase"
   stream9dev2base:
     build:
       context: .
@@ -21,4 +21,4 @@ services:
       args:
         image: node20dev
         centos: $OS9
-    image: "aursu/php83build:${OS9TAG}-dev2base"
+    image: "aursu/php84build:${OS9TAG}-dev2base"

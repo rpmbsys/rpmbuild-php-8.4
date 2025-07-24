@@ -6,16 +6,16 @@
 %php_pdo_api  @PHP_PDOVER@
 %php_version  @PHP_VERSION@
 
-%php_extdir    %{_libdir}/php83/modules
+%php_extdir    %{_libdir}/php84/modules
 
-%php_inidir    %{_sysconfdir}/php83/php.d
+%php_inidir    %{_sysconfdir}/php84/php.d
 
-%php_incldir    %{_includedir}/php83
+%php_incldir    %{_includedir}/php84
 
-%__php         %{_bindir}/php83
+%__php         %{_bindir}/php84
 
-%__phpize      %{_bindir}/phpize83
+%__phpize      %{_bindir}/phpize84
 
-%__phpconfig    %{_bindir}/php83-config
+%__phpconfig    %{_bindir}/php84-config
 
-%pecl_xmldir   %{_sharedstatedir}/php83/peclxml
+%pecl_xmldir   %{_sharedstatedir}/php84/peclxml
