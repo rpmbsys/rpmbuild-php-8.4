@@ -1,21 +1,15 @@
 services:
-  rocky9run:
+  rocky10run:
     build:
       context: .
       args:
-        rocky: $RL9
-    image: "aursu/php84build:${RL9TAG}-runtime"
-  rocky9devbase:
-    build:
-      context: .
-      args:
-        image: node20dev
-        rocky: $RL9
-    image: "aursu/php84build:${RL9TAG}-devbase"
-  rocky9dev2base:
+        rocky: $RL10
+    image: "aursu/php84build:${RL10TAG}-runtime"
+  rocky10devbase:
     build:
       context: .
       args:
         image: node22dev
-        rocky: $RL9
-    image: "aursu/php84build:${RL9TAG}-dev2base"
+        rocky: $RL10
+    image: "aursu/php84build:${RL10TAG}-devbase"
+
