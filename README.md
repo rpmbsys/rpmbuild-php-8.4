@@ -1,80 +1,135 @@
-## Build process setup
+## PHP 8.4 RPM Build Process
 
-Sections `Prerequisites` and `Setup` should be done only once per build host
+This repository contains Docker-based infrastructure to build RPM packages for PHP 8.4 and its extensions for **Rocky Linux 9 and 10**.
 
-### Requirements
+You can run the build locally or use the automated GitHub Actions workflow.
 
-* Docker CE 20.10.0+ (https://docs.docker.com/install/)
+---
 
-### PHP 8.4 Requirements
+## Requirements (one-time per build host)
 
-### Prerequisites
+### 1. Docker
 
-1. `Docker` should be installed on build host following these instructions:
+Install **Docker CE 20.10.0+** following the official guide:  
+https://docs.docker.com/engine/install/
 
-    https://docs.docker.com/install/linux/docker-ce/centos/#set-up-the-repository
+### 2. Add current user to Docker group
 
-    and
-
-    https://docs.docker.com/install/linux/docker-ce/centos/#install-docker-ce-1
-
-3. Add your build user into docker group (required to manage docker):
-
-    ```
-    usermod -aG docker <username>
-    ```
-
-    and relogin
-
-4. Start Docker daemon
-
-    ```
-    systemctl enable docker
-    systemctl start docker
-    ```
-
-### Setup
-
-1. Clone build repo with submodules:
-
-    ```
-    git clone --recursive https://github.com/aursu/rpmbuild-php-8.4.git
-    cd rpmbuild-php-8.4
-    ```
-
-### Build process
-
-
-1. Build images
-
-    ```
-    docker compose -f docker-compose.base.yml build
-    docker compose build
-    ```
-
-2. Build packages
-
-    ```
-    docker compose up -d
-    ```
-
-    command above will start all build services in background. But it is possible
-    to run any of them or run in foreground etc
-
-3. Wait until command `docker compose ps` returns all services in state 'Exit 0'
-
-### Access RPM packages
-
-1. RPM packages located inside `rpm9rocky`, `rpm8rocky` and `rpm9stream` volumes
-
-### Clean up build
-
-To complete all build processes run commands:
-
+```bash
+sudo usermod -aG docker $(whoami)
 ```
+
+Then **logout and login again** to apply changes.
+
+### 3. Enable and start Docker daemon
+
+```bash
+sudo systemctl enable docker
+sudo systemctl start docker
+```
+
+---
+
+## Repository Setup
+
+Clone the repository with all submodules:
+
+```bash
+git clone --recursive https://github.com/aursu/rpmbuild-php-8.4.git
+cd rpmbuild-php-8.4
+```
+
+---
+
+## Build Process
+
+### 1. Build Base and Builder Images
+
+```bash
+docker compose -f docker-compose.base.yml build --no-cache --pull
+docker compose build --no-cache
+```
+
+*Note: This will build images for both Rocky 9 and Rocky 10.*
+
+### 2. Run the Build
+
+You can run all build services:
+
+```bash
+docker compose up -d
+```
+
+Or run specific builder container:
+
+```bash
+docker compose run --rm rocky9build
+# or
+docker compose run --rm rocky10build
+```
+
+### 3. Wait for Completion
+
+Check containers’ statuses:
+
+```bash
+docker compose ps
+```
+
+Wait until all build containers exit with status `Exit 0`.
+
+---
+
+## Accessing RPM Packages
+
+Resulting `.rpm` files will be located in Docker volumes:
+
+- For **Rocky 9**: `rpm9rocky`
+- For **Rocky 10**: `rpm10rocky`
+
+To extract them:
+
+```bash
+docker run --rm -v rpm9rocky:/data alpine ls /data
+docker run --rm -v rpm10rocky:/data alpine ls /data
+```
+
+Or mount them to local folders using a helper container.
+
+---
+
+## Clean Up
+
+To stop and remove build containers:
+
+```bash
 docker compose down
-docker compose -f rpmbuild/docker-compose.yml down
 ```
 
-These commands will stop and remove all containers but not build images (see
-`docker images` and `docker rmi` commands manuals)
+To also remove images:
+
+```bash
+docker image prune
+# or more selectively:
+docker rmi <image_name>
+```
+
+---
+
+## GitHub Actions (CI/CD)
+
+This repository supports automated builds via GitHub Actions.
+
+On push, it:
+- Builds Docker images and RPMs for Rocky 9 & 10.
+- Uploads them to Artifactory (JFrog) or GitHub Container Registry.
+- Supports `skip-rpm-*` branches to skip the build process.
+
+Workflow file: `.github/workflows/rpm.yml`
+
+---
+
+## Notes
+
+- Ensure you have enough free space (~5–10 GB recommended).
+- For PHP extensions or version bumps, edit the Dockerfiles in relevant folders.
