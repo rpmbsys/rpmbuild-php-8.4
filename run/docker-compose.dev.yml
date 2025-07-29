@@ -4,17 +4,17 @@ services:
       context: dev
       args:
         os: $RL10
-    image: "aursu/php84build:${RL10TAG}-dev"
+    image: "ghcr.io/rpmbsys/php84build:${RL10TAG}-dev"
   rocky9dev:
     build:
       context: dev
       args:
         os: $RL9
-    image: "aursu/php84build:${RL9TAG}-dev"
+    image: "ghcr.io/rpmbsys/php84build:${RL9TAG}-dev"
   rocky9dev2:
     build:
       context: dev
       args:
         os: $RL9
         image: dev2base
-    image: "aursu/php84build:${RL9TAG}-dev2"
+    image: "ghcr.io/rpmbsys/php84build:${RL9TAG}-dev2"

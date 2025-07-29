@@ -61,12 +61,14 @@ jobs:
     strategy:
       matrix:
         compose-file: [run/docker-compose.yml, run/docker-compose.RL9.yml]
+    env:
+      DOCKER_PASS: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v3
         with:
           submodules: true
       - run: docker compose -f ${{ matrix.compose-file }} build --no-cache --pull
-      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - run: docker login ghcr.io -u $DOCKER_USER -p $DOCKER_PASS
       - run: docker compose -f ${{ matrix.compose-file }} push
   dev:
     needs: runtime
@@ -75,10 +77,12 @@ jobs:
     strategy:
       matrix:
         compose-file: [run/docker-compose.dev.yml]
+    env:
+      DOCKER_PASS: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v3
         with:
           submodules: true
       - run: docker compose -f ${{ matrix.compose-file }} build --no-cache --pull
-      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - run: docker login ghcr.io -u $DOCKER_USER -p $DOCKER_PASS
       - run: docker compose -f ${{ matrix.compose-file }} push
