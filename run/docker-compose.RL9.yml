@@ -4,7 +4,7 @@ services:
       context: .
       args:
         rocky: $RL9
-    image: "ghcr.io/rpmbsys/php84build:${RL9TAG}-runtime"
+    image: "ghcr.io/rpmbsys/php84build:${RL9TAG}-${RUNTAG}"
   rocky9devbase:
     build:
       context: .

@@ -4,7 +4,7 @@ services:
       context: .
       args:
         rocky: $RL10
-    image: "ghcr.io/rpmbsys/php84build:${RL10TAG}-runtime"
+    image: "ghcr.io/rpmbsys/php84build:${RL10TAG}-${RUNTAG}"
   rocky10devbase:
     build:
       context: .
@@ -12,4 +12,3 @@ services:
         image: node22dev
         rocky: $RL10
     image: "ghcr.io/rpmbsys/php84build:${RL10TAG}-devbase"
-
