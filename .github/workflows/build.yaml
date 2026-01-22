@@ -8,13 +8,13 @@ env:
   DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
   BINTRAY_REPO: php84custom
   SPEC_FILE: SPECS/php84.spec
-  RL9: 9.6.20250531
-  RL9TAG: 9.6.20250531
-  RL10: 10.0.20250606
-  RL10TAG: 10.0.20250606
+  RL9: 9.7.20251123
+  RL9TAG: 9.7.20251123
+  RL10: 10.1.20251126
+  RL10TAG: 10.1.20251126
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     if: ${{ ! startsWith(github.ref_name, 'skip-rpm-') }}
     strategy:
       matrix:
@@ -47,7 +47,7 @@ jobs:
   build:
     needs: test
     if: ${{ always() }}
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
         with:
@@ -58,7 +58,7 @@ jobs:
   runtime:
     needs: test
     if: ${{ always() }}
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     strategy:
       matrix:
         compose-file: [run/docker-compose.yml, run/docker-compose.RL9.yml]
@@ -81,7 +81,7 @@ jobs:
   dev:
     needs: runtime
     if: ${{ always() }}
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     strategy:
       matrix:
         compose-file: [run/docker-compose.dev.yml]
