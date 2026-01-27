@@ -14,7 +14,7 @@ env:
   RL10TAG: 10.1.20251126
 jobs:
   test:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     if: ${{ ! startsWith(github.ref_name, 'skip-rpm-') }}
     strategy:
       matrix:
@@ -47,7 +47,7 @@ jobs:
   build:
     needs: test
     if: ${{ always() }}
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
@@ -58,7 +58,7 @@ jobs:
   runtime:
     needs: test
     if: ${{ always() }}
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         compose-file: [run/docker-compose.yml, run/docker-compose.RL9.yml]
@@ -81,7 +81,7 @@ jobs:
   dev:
     needs: runtime
     if: ${{ always() }}
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         compose-file: [run/docker-compose.dev.yml]
