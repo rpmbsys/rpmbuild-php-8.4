@@ -142,7 +142,7 @@
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: %{php_main}
-Version: 8.4.19
+Version: 8.4.22
 Release: %{rpmrel}%{?dist}
 
 # All files licensed under PHP version 3.01, except
@@ -200,7 +200,7 @@ Patch8: php-8.4.0-libdb.patch
 # Use system nikic/php-parser
 Patch41: php-8.3.3-parser.patch
 # use system tzdata
-Patch42: php-8.4.0-systzdata-v24.patch
+Patch42: php-8.4.22-systzdata-v24.patch
 # See http://bugs.php.net/53436
 # + display PHP version backported from 8.4
 Patch43: php-8.4.0-phpize.patch
@@ -527,7 +527,8 @@ bytecode optimization patterns that make code execution faster.
 Summary: A module for PHP applications which use XML
 
 # All files licensed under PHP version 3.01, except
-License:  PHP-3.01
+# lexbor is Apache-2.0
+License:  PHP-3.01 AND Apache-2.0
 Requires: %{php_common}%{?_isa} = %{version}-%{baserel}
 # This extension is enabled by default
 Provides: php-dom, php-dom%{?_isa}
@@ -540,6 +541,9 @@ Provides: php-xmlreader, php-xmlreader%{?_isa}
 Provides: php-xmlwriter, php-xmlwriter%{?_isa}
 # PHP 5 includes the XSL extension by default and can be enabled by adding the argument --with-xsl
 Provides: php-xsl, php-xsl%{?_isa}
+# See ext/dom/lexbor/patches/README.md
+%global lexborver 2.7.0
+Provides: bundled(lexbor) = %{lexborver}
 BuildRequires: pkgconfig(libxslt)  >= 1.1
 BuildRequires: pkgconfig(libexslt)
 %global with_modules 1
@@ -759,6 +763,7 @@ cp ext/mbstring/libmbfl/LICENSE libmbfl_LICENSE
 cp ext/fileinfo/libmagic/LICENSE libmagic_LICENSE
 cp ext/bcmath/libbcmath/LICENSE libbcmath_LICENSE
 cp ext/date/lib/LICENSE.rst timelib_LICENSE
+cp ext/dom/lexbor/LICENSE lexbor_LICENSE
 
 # Multiple builds for multiple SAPIs
 mkdir build-apache
@@ -793,6 +798,13 @@ pver=$(sed -n '/#define PHP_VERSION /{s/.* "//;s/".*$//;p}' main/php_version.h)
 if test "x${pver}" != "x%{version}"; then
    : Error: Upstream PHP version is now ${pver}, expecting %{version}.
    : Update the version macros and rebuild.
+   exit 1
+fi
+
+vlexbor=`sed -n '/Lexbor version/{s/.* is //;s/\.$//;p}' ext/dom/lexbor/patches/README.md`
+if test "x${vlexbor}" != "x%{lexborver}"; then
+   : Error: Upstream Lexbor version is now ${vlexbor}, expecting %{lexborver}.
+   : Update the lexborver macro and rebuild.
    exit 1
 fi
 
@@ -1494,6 +1506,7 @@ exit 0
 
 %if %{with_xml}
 %files xml -f files.xml
+%license lexbor_LICENSE
 %endif
 
 %if %{with_bcmath}
@@ -1540,6 +1553,15 @@ exit 0
 %endif
 
 %changelog
+* Wed Jun  3 2026 Remi Collet <remi@remirepo.net> - 8.4.22-1
+- Update to 8.4.22 - http://www.php.net/releases/8_4_22.php
+
+* Wed May  6 2026 Remi Collet <remi@remirepo.net> - 8.4.21-1
+- Update to 8.4.21 - http://www.php.net/releases/8_4_21.php
+
+* Wed Apr  8 2026 Remi Collet <remi@remirepo.net> - 8.4.20-1
+- Update to 8.4.20 - http://www.php.net/releases/8_4_20.php
+
 * Wed Mar 11 2026 Remi Collet <remi@remirepo.net> - 8.4.19-1
 - Update to 8.4.19 - http://www.php.net/releases/8_4_19.php
 
