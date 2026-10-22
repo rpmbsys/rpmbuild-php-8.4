@@ -142,7 +142,7 @@
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: %{php_main}
-Version: 8.4.22
+Version: 8.4.27
 Release: %{rpmrel}%{?dist}
 
 # All files licensed under PHP version 3.01, except
@@ -1553,6 +1553,21 @@ exit 0
 %endif
 
 %changelog
+* Wed Oct 21 2026 Jitka Plesnikova <jplesnik@redhat.com> - 8.4.27-1
+- Update to 8.4.27 - http://www.php.net/releases/8_4_27.php
+
+* Tue Sep 22 2026 Remi Collet <remi@remirepo.net> - 8.4.26-1
+- Update to 8.4.26 - http://www.php.net/releases/8_4_26.php
+
+* Wed Aug 26 2026 Remi Collet <remi@remirepo.net> - 8.4.25-1
+- Update to 8.4.25 - http://www.php.net/releases/8_4_25.php
+
+* Wed Jul 29 2026 Remi Collet <remi@remirepo.net> - 8.4.24-1
+- Update to 8.4.24 - http://www.php.net/releases/8_4_24.php
+
+* Wed Jul  1 2026 Remi Collet <remi@remirepo.net> - 8.4.23-1
+- Update to 8.4.23 - http://www.php.net/releases/8_4_23.php
+
 * Wed Jun  3 2026 Remi Collet <remi@remirepo.net> - 8.4.22-1
 - Update to 8.4.22 - http://www.php.net/releases/8_4_22.php
 
